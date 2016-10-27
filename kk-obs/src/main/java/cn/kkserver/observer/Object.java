@@ -277,4 +277,144 @@ public class Object implements IObject {
     protected void onChangedKeys(String[] keys) {
 
     }
+
+    public String getString(String[] keys,String defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof  String) {
+                return (String )v;
+            }
+
+            return v.toString();
+        }
+
+        return defaultValue;
+    }
+
+    public int getInt(String[] keys, int defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof String) {
+                try {
+                    return Integer.valueOf((String)v);
+                }
+                catch(Throwable e){
+                    return defaultValue;
+                }
+            }
+
+            if(v instanceof Number) {
+                return ((Number) v).intValue();
+            }
+
+        }
+
+        return defaultValue;
+    }
+
+    public long getLong(String[] keys, long defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof String) {
+                try {
+                    return Long.valueOf((String)v);
+                }
+                catch(Throwable e){
+                    return defaultValue;
+                }
+            }
+
+            if(v instanceof Number) {
+                return ((Number) v).longValue();
+            }
+
+        }
+
+        return defaultValue;
+    }
+
+    public float getFloat(String[] keys, float defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof String) {
+                try {
+                    return Float.valueOf((String)v);
+                }
+                catch(Throwable e){
+                    return defaultValue;
+                }
+            }
+
+            if(v instanceof Number) {
+                return ((Number) v).floatValue();
+            }
+
+        }
+
+        return defaultValue;
+    }
+
+    public double getDouble(String[] keys, double defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof String) {
+                try {
+                    return Double.valueOf((String)v);
+                }
+                catch(Throwable e){
+                    return defaultValue;
+                }
+            }
+
+            if(v instanceof Number) {
+                return ((Number) v).doubleValue();
+            }
+
+        }
+
+        return defaultValue;
+    }
+
+    public boolean getBoolean(String[] keys, boolean defaultValue) {
+
+        java.lang.Object v = get(keys);
+
+        if(v != null) {
+
+            if(v instanceof String) {
+                try {
+                    return Boolean.valueOf((String)v);
+                }
+                catch(Throwable e){
+                    return defaultValue;
+                }
+            }
+
+            if(v instanceof Boolean) {
+                return ((Boolean) v).booleanValue();
+            }
+
+            if(v instanceof Number) {
+                return ((Number) v).doubleValue() == 0.0;
+            }
+
+        }
+
+        return defaultValue;
+    }
 }
