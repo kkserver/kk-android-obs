@@ -29,7 +29,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             pom.groupId = "kk"
-            pom.artifactId = "android-obs"
+            pom.artifactId = "observer"
             pom.version = "0.0.1"
             repository(url: RELEASE_REPOSITORY_URL) {
 
