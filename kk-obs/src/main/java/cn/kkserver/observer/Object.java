@@ -278,6 +278,7 @@ public class Object implements IObject {
 
     }
 
+    @Override
     public String getString(String[] keys,String defaultValue) {
 
         java.lang.Object v = get(keys);
@@ -294,6 +295,7 @@ public class Object implements IObject {
         return defaultValue;
     }
 
+    @Override
     public int getInt(String[] keys, int defaultValue) {
 
         java.lang.Object v = get(keys);
@@ -318,6 +320,7 @@ public class Object implements IObject {
         return defaultValue;
     }
 
+    @Override
     public long getLong(String[] keys, long defaultValue) {
 
         java.lang.Object v = get(keys);
@@ -342,6 +345,7 @@ public class Object implements IObject {
         return defaultValue;
     }
 
+    @Override
     public float getFloat(String[] keys, float defaultValue) {
 
         java.lang.Object v = get(keys);
@@ -366,6 +370,7 @@ public class Object implements IObject {
         return defaultValue;
     }
 
+    @Override
     public double getDouble(String[] keys, double defaultValue) {
 
         java.lang.Object v = get(keys);
@@ -390,6 +395,7 @@ public class Object implements IObject {
         return defaultValue;
     }
 
+    @Override
     public boolean getBoolean(String[] keys, boolean defaultValue) {
 
         java.lang.Object v = get(keys);
