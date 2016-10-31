@@ -198,12 +198,12 @@ public class Observer extends Object implements IObserver {
     }
 
     @Override
-    public IObserver with(String[] baseKeys) {
+    public IWithObserver with(String[] baseKeys) {
         return new WithObserver(this,baseKeys);
     }
 
     @Override
-    public IObserver with(String[] baseKeys,java.lang.Object object) {
+    public IWithObserver with(String[] baseKeys,java.lang.Object object) {
         return new WithObserver(this,baseKeys,object);
     }
 

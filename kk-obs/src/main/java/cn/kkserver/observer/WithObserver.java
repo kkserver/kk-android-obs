@@ -3,15 +3,17 @@ package cn.kkserver.observer;
 /**
  * Created by zhanghailong on 2016/10/27.
  */
-public class WithObserver extends Observer {
+public class WithObserver extends Observer implements IWithObserver{
 
     private final String[] _baseKeys;
     private final Observer _observer;
 
-    public Observer observer() {
+    @Override
+    public IObserver observer() {
         return _observer;
     }
 
+    @Override
     public String[] baseKeys() {
         return _baseKeys;
     }
@@ -39,6 +41,7 @@ public class WithObserver extends Observer {
 
     }
 
+    @Override
     public void recycle(){
         _observer.off(_baseKeys,null,this);
     }

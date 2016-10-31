@@ -13,8 +13,8 @@ public interface IObserver extends IObject {
 
     public <T extends java.lang.Object> IObserver off( String[] keys,Listener<T> listener,T weakObject);
 
-    public IObserver with(String[] baseKeys);
+    public IWithObserver with(String[] baseKeys);
 
-    public IObserver with(String[] baseKeys,java.lang.Object object);
+    public IWithObserver with(String[] baseKeys,java.lang.Object object);
 
 }
