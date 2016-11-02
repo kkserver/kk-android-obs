@@ -30,8 +30,9 @@ public class WithObserver extends Observer implements IWithObserver{
 
             @Override
             public void onChanged(IObserver observer, String[] keys, WithObserver weakObject) {
-                if(keys == null || keys.length == 0 || keys.length == baseKeys.length) {
+                if(keys == null || keys.length == 0 || keys.length <= baseKeys.length) {
                     weakObject.setValue(null);
+                    weakObject.change(new String[]{});
                 } else {
                     weakObject.change(Object.slice(keys,baseKeys.length));
                 }
@@ -46,4 +47,11 @@ public class WithObserver extends Observer implements IWithObserver{
         _observer.off(_baseKeys,null,this);
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+
+        _observer.off(_baseKeys,null,this);
+
+        super.finalize();
+    }
 }

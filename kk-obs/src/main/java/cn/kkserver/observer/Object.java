@@ -1,6 +1,7 @@
 package cn.kkserver.observer;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -93,7 +94,13 @@ public class Object implements IObject {
                     Field fd = v.getClass().getField(key);
                     v = fd.get(v);
                 } catch (Throwable e) {
-                    v = null;
+                    try {
+                        Method md = v.getClass().getMethod(key);
+                        v = md.invoke(v);
+                    }
+                    catch(Throwable ex) {
+                        v = null;
+                    }
                 }
             }
 
