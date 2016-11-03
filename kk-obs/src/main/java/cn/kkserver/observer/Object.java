@@ -1,5 +1,6 @@
 package cn.kkserver.observer;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -10,6 +11,20 @@ import java.util.TreeMap;
  * Created by zhanghailong on 16/7/26.
  */
 public class Object implements IObject {
+
+    public static String joinString(String[] keys) {
+
+        StringBuilder sb = new StringBuilder();
+
+        for(int i=0;i<keys.length;i++) {
+            if(i != 0) {
+                sb.append(".");
+            }
+            sb.append(keys[i]);
+        }
+
+        return sb.toString();
+    }
 
     public static String[] join(String[] baseKeys,String[] keys) {
 
@@ -88,6 +103,20 @@ public class Object implements IObject {
             }
             else if(v instanceof IGetter) {
                 v =((IGetter) v).get(key);
+            }
+            else if(v.getClass().isArray()) {
+                try {
+                    int i = Integer.valueOf(key);
+                    if(i >=0 && i < Array.getLength(v)) {
+                        v = Array.get(v,i);
+                    }
+                    else {
+                        v = null;
+                    }
+                }
+                catch (Throwable e) {
+                    v = null;
+                }
             }
             else {
                 try {

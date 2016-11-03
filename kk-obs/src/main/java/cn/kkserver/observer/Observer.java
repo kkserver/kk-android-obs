@@ -15,7 +15,7 @@ public class Observer extends Object implements IObserver {
 
     private KeyObserver _keyObserver = new KeyObserver();
 
-    private java.lang.Object _object;
+    protected java.lang.Object _object;
 
     @Override
     public java.lang.Object valueOf() {
