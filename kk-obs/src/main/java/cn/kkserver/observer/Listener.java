@@ -7,6 +7,6 @@ import java.lang.*;
  */
 public interface Listener<T extends java.lang.Object>{
 
-    public void onChanged(IObserver observer, String[] keys, T weakObject);
+    public void onChanged(IObserver observer, String[] changedKeys, T weakObject);
 
 }

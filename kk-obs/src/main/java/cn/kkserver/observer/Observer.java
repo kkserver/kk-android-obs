@@ -54,6 +54,11 @@ public class Observer extends Object implements IObserver {
     }
 
     @Override
+    public IObserver parent() {
+        return null;
+    }
+
+    @Override
     public IObserver change(String[] keys) {
 
         onChangedKeys(keys);
@@ -83,9 +88,6 @@ public class Observer extends Object implements IObserver {
             }
 
         }
-
-        _keyObserver.on(keyListener);
-
 
         return this;
     }

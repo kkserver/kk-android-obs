@@ -5,8 +5,6 @@ package cn.kkserver.observer;
  */
 public interface IWithObserver extends IObserver {
 
-    public IObserver observer();
-
     public String[] baseKeys();
 
     public void recycle();

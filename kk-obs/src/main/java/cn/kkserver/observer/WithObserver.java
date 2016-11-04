@@ -1,6 +1,7 @@
 package cn.kkserver.observer;
 
-import java.util.TreeMap;
+
+import android.util.Log;
 
 /**
  * Created by zhanghailong on 2016/10/27.
@@ -8,10 +9,10 @@ import java.util.TreeMap;
 public class WithObserver extends Observer implements IWithObserver{
 
     private final String[] _baseKeys;
-    private final Observer _observer;
+    private final IObserver _observer;
 
     @Override
-    public IObserver observer() {
+    public IObserver parent() {
         return _observer;
     }
 
@@ -20,7 +21,7 @@ public class WithObserver extends Observer implements IWithObserver{
         return _baseKeys;
     }
 
-    public WithObserver(Observer observer,String[] baseKeys,java.lang.Object object) {
+    public WithObserver(IObserver observer,String[] baseKeys,java.lang.Object object) {
         this(observer,baseKeys);
         setValue(object);
     }
@@ -29,11 +30,14 @@ public class WithObserver extends Observer implements IWithObserver{
     public java.lang.Object valueOf() {
         if(_object == null) {
             _object = _observer.get(_baseKeys);
+            if(_object == null) {
+
+            }
         }
         return _object;
     }
 
-    public WithObserver(Observer observer, final String[] baseKeys) {
+    public WithObserver(IObserver observer, final String[] baseKeys) {
         _baseKeys = baseKeys;
         _observer = observer;
         _observer.on(baseKeys, new Listener<WithObserver>() {
