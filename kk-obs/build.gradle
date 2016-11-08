@@ -20,7 +20,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    compile "kk:core:0.0.3@aar"
 }
 
 apply plugin: 'maven'
