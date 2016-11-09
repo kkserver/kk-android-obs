@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import cn.kkserver.core.Value;
+
 /**
  * Created by zhanghailong on 16/7/26.
  */
@@ -74,101 +76,11 @@ public class Object implements IObject {
     }
 
     public static java.lang.Object get(java.lang.Object v, String key) {
-
-        if(v != null) {
-
-            if(v instanceof Map) {
-                Map<String, java.lang.Object> m = (Map<String, java.lang.Object>)v;
-                if(m.containsKey(key)) {
-                    v = m.get(key);
-                }
-                else {
-                    v = null;
-                }
-            }
-            else if(v instanceof List) {
-                List<java.lang.Object> l = (List<java.lang.Object>) v;
-                try {
-                    int i = Integer.valueOf(key);
-                    if(i >=0 && i < l.size()) {
-                        v = l.get(i);
-                    }
-                    else {
-                        v = null;
-                    }
-                }
-                catch (Throwable e) {
-                    v = null;
-                }
-            }
-            else if(v instanceof IGetter) {
-                v =((IGetter) v).get(key);
-            }
-            else if(v.getClass().isArray()) {
-                try {
-                    int i = Integer.valueOf(key);
-                    if(i >=0 && i < Array.getLength(v)) {
-                        v = Array.get(v,i);
-                    }
-                    else {
-                        v = null;
-                    }
-                }
-                catch (Throwable e) {
-                    v = null;
-                }
-            }
-            else {
-                try {
-                    Field fd = v.getClass().getField(key);
-                    v = fd.get(v);
-                } catch (Throwable e) {
-                    try {
-                        Method md = v.getClass().getMethod(key);
-                        v = md.invoke(v);
-                    }
-                    catch(Throwable ex) {
-                        v = null;
-                    }
-                }
-            }
-
-        }
-
-        return v;
+        return Value.get(v,key);
     }
 
     public static void set(java.lang.Object v , String key, java.lang.Object value) {
-
-        if(v != null) {
-
-            if(v instanceof Map) {
-                ((Map<String, java.lang.Object>) v).put(key,value);
-            }
-            else if(v instanceof List) {
-                List<java.lang.Object> l = (List<java.lang.Object>) v;
-                try {
-                    int i = Integer.valueOf(key);
-                    if(i >=0 && i < l.size()) {
-                        l.set(i,value);
-                    }
-                    else if(i == l.size()) {
-                        l.add(value);
-                    }
-                }
-                catch (Throwable e) {}
-            }
-            else if(v instanceof ISetter) {
-                ((ISetter) v).set(key,value);
-            }
-            else {
-                try {
-                    Field fd = v.getClass().getField(key);
-                    fd.set(v,value);
-                } catch (Throwable e) {
-                }
-            }
-        }
+        Value.set(v,key,value);
     }
 
     public static void remove(java.lang.Object v , String key) {

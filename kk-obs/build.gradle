@@ -20,7 +20,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "kk:core:0.0.3@aar"
+    compile "kk:core:0.0.4@aar"
+    //compile project(':kk-core')
 }
 
 apply plugin: 'maven'
@@ -30,7 +31,7 @@ uploadArchives {
         mavenDeployer {
             pom.groupId = "kk"
             pom.artifactId = "observer"
-            pom.version = "0.0.4"
+            pom.version = "0.0.5"
             repository(url: RELEASE_REPOSITORY_URL) {
 
             }
