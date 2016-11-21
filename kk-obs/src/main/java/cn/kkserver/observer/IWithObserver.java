@@ -7,6 +7,10 @@ public interface IWithObserver extends IObserver {
 
     public String[] baseKeys();
 
+    public void obtainObserver(IObserver observer,String[] baseKeys,java.lang.Object object);
+
+    public void obtainObserver(IObserver observer,String[] baseKeys);
+
     public void recycle();
 
 }

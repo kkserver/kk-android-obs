@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import cn.kkserver.core.Value;
+
 /**
  * Created by zhanghailong on 16/7/13.
  */
@@ -40,7 +42,14 @@ public class Observer extends Object implements IObserver {
 
             String key = keys[idx];
 
-            obs = obs.keyObserver(key);
+            KeyObserver v = obs.keyObserver(key,false);
+
+            if(v == null) {
+                obs.change(this, keys);
+                return;
+            }
+
+            obs = v;
 
             idx ++;
 
@@ -78,7 +87,12 @@ public class Observer extends Object implements IObserver {
 
             String key = keys[idx];
 
-            obs = obs.keyObserver(key);
+            if(key.startsWith("@")) {
+                obs.on(keyListener);
+                return this;
+            }
+
+            obs = obs.keyObserver(key,true);
 
             idx ++;
 
@@ -88,6 +102,8 @@ public class Observer extends Object implements IObserver {
             }
 
         }
+
+        obs.on(keyListener);
 
         return this;
     }
@@ -112,14 +128,22 @@ public class Observer extends Object implements IObserver {
 
             String key = keys[idx];
 
-            obs = obs.keyObserver(key);
+            if(key.startsWith("@")) {
+                obs.off(listener,weakObject,false);
+                return this;
+            }
+
+            obs = obs.keyObserver(key,false);
 
             idx ++;
 
             if (idx == keys.length) {
                 obs.off(listener,weakObject,false);
+                return this;
             }
         }
+
+        obs.off(listener,weakObject,false);
 
         return this;
     }
@@ -188,25 +212,32 @@ public class Observer extends Object implements IObserver {
             }
         }
 
-        public KeyObserver keyObserver(String key) {
+        public KeyObserver keyObserver(String key,boolean autoCreate) {
             if(_observers.containsKey(key)) {
                 return _observers.get(key);
             }
-            KeyObserver v = new KeyObserver();
-            _observers.put(key,v);
-            return v;
+            if(autoCreate) {
+                KeyObserver v = new KeyObserver();
+                _observers.put(key, v);
+                return v;
+            }
+            return null;
         }
 
     }
 
     @Override
     public IWithObserver with(String[] baseKeys) {
-        return new WithObserver(this,baseKeys);
+        WithObserver v = new WithObserver();
+        v.obtainObserver(this,baseKeys);
+        return v;
     }
 
     @Override
     public IWithObserver with(String[] baseKeys,java.lang.Object object) {
-        return new WithObserver(this,baseKeys,object);
+        WithObserver v = new WithObserver();
+        v.obtainObserver(this,baseKeys,object);
+        return v;
     }
 
 }

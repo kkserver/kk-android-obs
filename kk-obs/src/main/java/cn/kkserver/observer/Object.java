@@ -54,6 +54,12 @@ public class Object implements IObject {
     }
 
     public static String[] keys(String key) {
+        if(key == null) {
+            return null;
+        }
+        if("".equals(key)) {
+            return new String[0];
+        }
         return key.split("\\.");
     }
 
